@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script>
+    // Get the session_id or canceled parameter from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionId = urlParams.get('session_id');
+    const canceled = urlParams.get('canceled');
+    
+    // Construct the app deep link
+    let appUrl = 'lovecycle://auth/callback';
+    if (sessionId) {
+      appUrl += '?session_id=' + encodeURIComponent(sessionId);
+    } else if (canceled) {
+      appUrl += '?canceled=' + encodeURIComponent(canceled);
+    }
+    
+    // Redirect to the app
+    window.location.href = appUrl;
+    
+    // Fallback: if the app doesn't open, show a message
+    setTimeout(function() {
+      document.body.innerHTML = '<h1>Redirecting to app...</h1><p>If the app doesn\'t open, please return to the app manually.</p>';
+    }, 1000);
+  </script>
+</head>
+<body>
+  <p>Redirecting to app...</p>
+</body>
+</html>
+
